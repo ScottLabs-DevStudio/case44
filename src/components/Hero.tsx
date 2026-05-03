@@ -1,19 +1,24 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { heroImage } from "@/data/case44";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blues-deep via-blues-mid to-background" />
+      <Image
+        src={heroImage}
+        alt="Case 44 performing live"
+        fill
+        priority
+        className="object-cover opacity-45"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-blues-deep/80 via-blues-mid/75 to-background" />
       <div className="absolute inset-0 bg-noise" />
-      
-      {/* Decorative smoke/light effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-blues-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/3 rounded-full blur-[100px]" />
 
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold/60 to-transparent" />

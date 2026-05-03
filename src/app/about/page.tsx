@@ -1,40 +1,6 @@
 import Footer from "@/components/Footer";
-
-const members = [
-  {
-    name: "Robert Elmore",
-    role: "Bass & Backing Vocals",
-    bio: "Self-taught since the age of twelve, Robert moved to St. Louis in 2016 and started sitting in at local jam sessions, meeting musicians and building connections. He met Steve at the National Blues Museum \"Sitting On The Porch\" jam sessions, and both played with Sisters Magnolia and The Weeds.",
-    influences: "Marcus Miller, Leon Wilkeson, John Paul Jones",
-    initials: "RE",
-  },
-  {
-    name: "Steve Eschbacher",
-    role: "Drums",
-    bio: "Born and raised in St. Louis, Steve has been playing drums for 50 years. His early influences covered various genres including pop, classic rock, funk, and blues. From wedding reception bands to original projects, from cover bands to drum instructing — music has always been part of his life.",
-    influences: "Pop, Classic Rock, Funk & Blues",
-    initials: "SE",
-  },
-  {
-    name: "Michael J. Johnson",
-    role: "Guitar & Lead Vocals",
-    bio: "A guitarist and lead vocalist with a passion for music since age two that continues to this day. Mike met Steve and Robert through playing jam sessions at The National Blues Museum, and the three formed the core of Case 44.",
-    influences: "Stevie Ray Vaughan, Kenny Wayne Shepherd, Jimi Hendrix, George Harrison, Jerry Garcia, Eric Clapton, John Mayer, Carlos Santana",
-    initials: "MJ",
-  },
-];
-
-const venues = [
-  "Moonshine Blues Bar, St. Charles",
-  "Fast Eddie's Bon-Air, Alton",
-  "Hawg Pit BBQ, Grafton",
-  "Salvatore's Italian Grill, St. Charles",
-  "Baker & Hale, Godfrey",
-  "Doit's Village Inn, Granite City",
-  "St. Charles Music House",
-  "Kenny's Bar & Grill, Barnhart",
-  "National Blues Museum, St. Louis",
-];
+import Image from "next/image";
+import { bandLogoImage, members, venues } from "@/data/case44";
 
 export default function AboutPage() {
   return (
@@ -64,28 +30,38 @@ export default function AboutPage() {
       <section className="relative py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-smoke to-background" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-card/60 backdrop-blur-sm border border-border/40 rounded-xl p-8 md:p-12">
-            <h2 className="font-heading text-3xl font-bold text-cream mb-6">
-              How It Started
-            </h2>
-            <div className="space-y-4 text-muted leading-relaxed">
-              <p>
-                Case 44 was born from the kind of connection that only happens when musicians 
-                find each other through the music itself. Robert Elmore and Steve Eschbacher 
-                first crossed paths at the National Blues Museum&apos;s &ldquo;Sitting On The Porch&rdquo; 
-                jam sessions in downtown St. Louis.
-              </p>
-              <p>
-                They played together in Sisters Magnolia and The Weeds, building a musical 
-                rapport that would eventually become something more. When they brought in 
-                guitarist and lead vocalist Michael J. Johnson, the chemistry was undeniable.
-              </p>
-              <p>
-                Their set list spans multiple genres — from raw Chicago blues to classic rock 
-                and roll — reflecting the diverse influences each member brings. Whether it&apos;s 
-                a smoky blues bar, a backyard BBQ, or a bike night rally, Case 44 brings the 
-                same energy and soul to every stage.
-              </p>
+          <div className="bg-card/60 backdrop-blur-sm border border-border/40 rounded-xl overflow-hidden">
+            <div className="relative aspect-[16/9] bg-blues-deep">
+              <Image
+                src={bandLogoImage}
+                alt="Case 44 band logo"
+                fill
+                className="object-contain p-8"
+                sizes="(min-width: 768px) 768px, 100vw"
+                priority
+              />
+            </div>
+            <div className="p-8 md:p-12">
+              <h2 className="font-heading text-3xl font-bold text-cream mb-6">
+                How It Started
+              </h2>
+              <div className="space-y-4 text-muted leading-relaxed">
+                <p>
+                  Case 44 is based out of St. Louis and was founded by Robert and Steve; a couple
+                  of guys who just want to play the music they love and have fun doing it.
+                </p>
+                <p>
+                  They brought in guitarist and lead vocalist Michael James Johnson to join the
+                  fun, and the rest is history. Their set list includes multiple genres from blues
+                  to rock and roll.
+                </p>
+                <p>
+                  The band grew from local jam sessions, including the National Blues Museum&apos;s
+                  &ldquo;Sitting On The Porch&rdquo; sessions, and continues to play bars, clubs,
+                  private events, festivals, bike nights, and outdoor concerts across the St. Louis
+                  region.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -111,13 +87,15 @@ export default function AboutPage() {
                 key={member.name}
                 className="group bg-card/80 backdrop-blur-sm border border-border/40 rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-500"
               >
-                <div className="relative h-48 bg-gradient-to-b from-blues-mid to-blues-deep flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                  <div className="relative z-10 w-20 h-20 rounded-full bg-gold/10 border-2 border-gold/30 flex items-center justify-center">
-                    <span className="font-heading text-2xl font-bold text-gold">
-                      {member.initials}
-                    </span>
-                  </div>
+                <div className="relative h-64 bg-blues-deep">
+                  <Image
+                    src={member.photo}
+                    alt={`${member.name} of Case 44`}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-heading text-xl font-bold text-cream group-hover:text-gold transition-colors">

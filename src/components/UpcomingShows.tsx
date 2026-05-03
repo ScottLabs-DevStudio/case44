@@ -1,46 +1,10 @@
 import Link from "next/link";
 import { Calendar, MapPin } from "lucide-react";
-
-const shows = [
-  {
-    date: "Apr 17, 2026",
-    venue: "St. Charles Music House",
-    city: "St. Charles",
-    title: "Case 44 @ St. Charles Music House",
-  },
-  {
-    date: "Apr 23, 2026",
-    venue: "Salvatore's Italian Grill",
-    city: "St. Charles",
-    title: "Case 44 @ Salvatore's",
-  },
-  {
-    date: "Apr 25, 2026",
-    venue: "Hawg Pit BBQ",
-    city: "Grafton",
-    title: "Case 44 @ Hawg Pit BBQ",
-  },
-  {
-    date: "May 3, 2026",
-    venue: "Moonshine Blues Bar",
-    city: "Saint Charles",
-    title: "Weekly Jam Session",
-  },
-  {
-    date: "May 10, 2026",
-    venue: "Fast Eddie's Bon-Air",
-    city: "Alton",
-    title: "Case 44 @ Fast Eddie's",
-  },
-  {
-    date: "May 17, 2026",
-    venue: "Hawg Pit BBQ",
-    city: "Grafton",
-    title: "Grafton Bike Week",
-  },
-];
+import { formatShowDate, upcomingShows } from "@/data/case44";
 
 export default function UpcomingShows() {
+  const shows = upcomingShows(6);
+
   return (
     <section className="relative py-24 bg-gradient-blues" id="shows">
       <div className="absolute inset-0 bg-noise" />
@@ -72,10 +36,10 @@ export default function UpcomingShows() {
                 <div className="flex-shrink-0 w-20 text-center">
                   <div className="bg-gold/10 rounded-lg p-2 group-hover:bg-gold/20 transition-colors">
                     <p className="text-gold font-heading font-bold text-lg leading-none">
-                      {show.date.split(" ")[1]}
+                      {formatShowDate(show.date).split(" ")[1].replace(",", "")}
                     </p>
                     <p className="text-gold/70 text-xs uppercase tracking-wider mt-1">
-                      {show.date.split(" ")[0]}
+                      {formatShowDate(show.date).split(" ")[0]}
                     </p>
                   </div>
                 </div>
@@ -90,8 +54,18 @@ export default function UpcomingShows() {
                       <MapPin className="w-3.5 h-3.5 text-gold/60" />
                       {show.venue}
                     </span>
-                    <span className="hidden sm:inline text-border">·</span>
-                    <span className="text-muted/70 text-sm">{show.city}</span>
+                    {show.city && (
+                      <>
+                        <span className="hidden sm:inline text-border">·</span>
+                        <span className="text-muted/70 text-sm">{show.city}</span>
+                      </>
+                    )}
+                    {show.time && (
+                      <>
+                        <span className="hidden sm:inline text-border">·</span>
+                        <span className="text-muted/70 text-sm">{show.time}</span>
+                      </>
+                    )}
                   </div>
                 </div>
 

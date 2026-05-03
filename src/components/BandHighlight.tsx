@@ -1,29 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-
-const members = [
-  {
-    name: "Robert Elmore",
-    role: "Bass & Backing Vocals",
-    image: null,
-    bio: "Self-taught since age twelve. Moved to St. Louis in 2016 and started sitting in at local jam sessions. Met Steve at the National Blues Museum. Influences: Marcus Miller, Leon Wilkeson, John Paul Jones.",
-    accent: "from-blue-900/40 to-blues-deep",
-  },
-  {
-    name: "Steve Eschbacher",
-    role: "Drums",
-    image: null,
-    bio: "Born & raised in St. Louis, playing drums for 50 years. Covers pop, classic rock, funk & blues. Wedding bands, original bands, drum instructor — music has always been part of his life.",
-    accent: "from-amber-900/40 to-blues-deep",
-  },
-  {
-    name: "Michael J. Johnson",
-    role: "Guitar & Lead Vocals",
-    image: null,
-    bio: "Passion for music since age two. Major influences: Stevie Ray Vaughan, Kenny Wayne Shepherd, Jimi Hendrix, Eric Clapton, John Mayer, Carlos Santana. Met Steve and Robert at the National Blues Museum.",
-    accent: "from-red-900/40 to-blues-deep",
-  },
-];
+import { members } from "@/data/case44";
 
 export default function BandHighlight() {
   return (
@@ -53,22 +31,23 @@ export default function BandHighlight() {
 
         {/* Member cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {members.map((member, i) => (
+          {members.map((member) => (
             <div
               key={member.name}
               className="group relative bg-card/60 backdrop-blur-sm border border-border/40 rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-500 hover:shadow-2xl hover:shadow-gold/5"
             >
               {/* Decorative top gradient */}
-              <div className={`h-1 bg-gradient-to-r ${member.accent}`} />
+              <div className="h-1 bg-gradient-to-r from-blues-accent via-gold/70 to-blues-deep" />
               
-              {/* Avatar placeholder */}
-              <div className="relative h-56 bg-gradient-to-b from-blues-mid to-blues-deep flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                <div className="relative z-10 w-24 h-24 rounded-full bg-gold/10 border-2 border-gold/30 flex items-center justify-center">
-                  <span className="font-heading text-3xl font-bold text-gold">
-                    {member.name.split(" ").map(n => n[0]).join("")}
-                  </span>
-                </div>
+              <div className="relative h-64 bg-blues-deep overflow-hidden">
+                <Image
+                  src={member.photo}
+                  alt={`${member.name} of Case 44`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
               </div>
 
               {/* Content */}

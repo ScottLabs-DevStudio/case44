@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Footer from "@/components/Footer";
-import { ShoppingBag, Plus, Minus, X, Trash2, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ShoppingBag, Plus, Minus, X, ArrowRight } from "lucide-react";
+import { merchDetails, merchImage } from "@/data/case44";
 
 type Product = {
   id: string;
@@ -12,62 +14,29 @@ type Product = {
   tag: string | null;
   sizes: string[];
   category: string;
+  image: string;
 };
 
 const products: Product[] = [
   {
     id: "logo-tee",
-    name: "Case 44 Logo Tee",
+    name: "Front Logo Shirt",
     price: 25,
-    description: "Classic Case 44 logo on heavyweight 100% cotton. Comfortable, durable, and ready for the stage. Screen-printed in St. Louis.",
+    description: "Case 44 front-logo shirt. Stocked sizes are usually Medium through XL; other sizes can be special ordered.",
     tag: "Best Seller",
-    sizes: ["M", "L", "XL", "2XL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
     category: "Apparel",
+    image: merchImage,
   },
   {
-    id: "blues-club-tee",
-    name: "Blues Club Tee",
+    id: "double-sided-tee",
+    name: "Double Sided Shirt",
     price: 25,
-    description: "Vintage-inspired smoky blues club design. Heavyweight cotton with a retro feel. Available in M–2XL.",
+    description: "Two-sided Case 44 shirt design. Available at shows or by contacting Michael Johnson for a merch request.",
     tag: "New",
-    sizes: ["M", "L", "XL", "2XL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
     category: "Apparel",
-  },
-  {
-    id: "case44-hoodie",
-    name: "Case 44 Hoodie",
-    price: 55,
-    description: "Stay warm at those late-night gigs. Heavyweight fleece hoodie with embroidered Case 44 logo.",
-    tag: null,
-    sizes: ["M", "L", "XL", "2XL"],
-    category: "Apparel",
-  },
-  {
-    id: "sticker-pack",
-    name: "Sticker Pack",
-    price: 8,
-    description: "3 die-cut vinyl stickers — logo, blues guitar, and St. Louis skyline. Weatherproof & fade-resistant.",
-    tag: null,
-    sizes: [],
-    category: "Accessories",
-  },
-  {
-    id: "guitar-pick-set",
-    name: "Guitar Pick Set",
-    price: 10,
-    description: "Set of 5 Case 44 branded guitar picks. Heavy gauge, perfect for blues playing.",
-    tag: null,
-    sizes: [],
-    category: "Accessories",
-  },
-  {
-    id: "truckers-cap",
-    name: "Case 44 Trucker Cap",
-    price: 22,
-    description: "Mesh-back trucker cap with embroidered logo. Adjustable fit, one size fits most.",
-    tag: "New",
-    sizes: [],
-    category: "Apparel",
+    image: merchImage,
   },
 ];
 
@@ -130,7 +99,7 @@ export default function ShopPage() {
             <span className="text-gradient-gold">Merch</span> Store
           </h1>
           <p className="font-accent text-lg text-muted max-w-xl mx-auto">
-            Shirts, stickers, picks & more. Available at shows or right here.
+            Shirts are available at shows or by request through the band.
           </p>
         </div>
       </section>
@@ -235,7 +204,7 @@ export default function ShopPage() {
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category filters */}
           <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
-            {["All", "Apparel", "Accessories"].map((cat) => (
+            {["All", "Apparel"].map((cat) => (
               <button
                 key={cat}
                 className={`px-4 py-2 text-sm font-medium rounded-full border transition-all duration-300 ${
@@ -257,12 +226,14 @@ export default function ShopPage() {
               >
                 {/* Product image area */}
                 <div className="relative h-72 bg-gradient-to-br from-blues-mid via-blues-deep to-blues-mid flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(201,168,76,0.1) 10px, rgba(201,168,76,0.1) 20px)"
-                    }} />
-                  </div>
-                  <ShoppingBag className="w-16 h-16 text-gold/15 group-hover:text-gold/30 transition-colors duration-500" />
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blues-deep via-transparent to-transparent opacity-40" />
                   {product.tag && (
                     <span className="absolute top-3 right-3 px-3 py-1 bg-gold text-blues-deep text-xs font-bold rounded-full">
                       {product.tag}
@@ -319,16 +290,13 @@ export default function ShopPage() {
 
           {/* Shipping note */}
           <div className="mt-16 text-center">
-            <div className="inline-flex items-center gap-6 bg-card/60 border border-border/30 rounded-xl px-8 py-5">
-              <div className="text-center">
-                <p className="text-cream font-heading font-semibold">Pick Up at Shows</p>
-                <p className="text-muted text-sm mt-1">No shipping cost — grab yours in person</p>
-              </div>
-              <div className="w-px h-10 bg-border/30" />
-              <div className="text-center">
-                <p className="text-cream font-heading font-semibold">Special Orders</p>
-                <p className="text-muted text-sm mt-1">Sizes outside M–2XL available on request</p>
-              </div>
+            <div className="inline-flex flex-col sm:flex-row items-center gap-6 bg-card/60 border border-border/30 rounded-xl px-8 py-5">
+              {merchDetails.notes.slice(0, 2).map((note) => (
+                <div className="text-center max-w-xs" key={note}>
+                  <p className="text-cream font-heading font-semibold">{merchDetails.contact}</p>
+                  <p className="text-muted text-sm mt-1">{note}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingBag, ArrowRight } from "lucide-react";
+import { merchImage } from "@/data/case44";
 
 const merch = [
   {
@@ -46,20 +48,21 @@ export default function MerchPreview() {
 
         {/* Merch grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {merch.map((item, i) => (
+          {merch.map((item) => (
             <div
               key={item.name}
               className="group relative bg-card/80 backdrop-blur-sm border border-border/40 rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-500 hover:shadow-xl hover:shadow-gold/5 hover:-translate-y-1"
             >
               {/* Product image placeholder */}
               <div className="relative h-64 bg-gradient-to-br from-blues-mid via-blues-deep to-blues-mid flex items-center justify-center overflow-hidden">
-                {/* Decorative pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(201,168,76,0.1) 10px, rgba(201,168,76,0.1) 20px)"
-                  }} />
-                </div>
-                <ShoppingBag className="w-16 h-16 text-gold/20 group-hover:text-gold/40 transition-colors" />
+                <Image
+                  src={merchImage}
+                  alt={item.name}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blues-deep via-transparent to-transparent opacity-40" />
                 {item.tag && (
                   <span className="absolute top-3 right-3 px-3 py-1 bg-gold text-blues-deep text-xs font-bold rounded-full">
                     {item.tag}

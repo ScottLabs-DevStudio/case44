@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Music, Mail, MapPin } from "lucide-react";
+import { socialLinks, sponsors } from "@/data/case44";
 
 export default function Footer() {
   return (
     <footer className="bg-blues-deep border-t border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -70,6 +71,41 @@ export default function Footer() {
                 line. We play bars, clubs, private events, and festivals across
                 the St. Louis area.
               </p>
+            </div>
+          </div>
+
+          {/* Social and sponsors */}
+          <div>
+            <h3 className="font-heading text-lg font-semibold text-cream mb-4">
+              Follow
+            </h3>
+            <ul className="space-y-2">
+              {socialLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-muted hover:text-gold text-sm transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 pt-6 border-t border-border/30">
+              <p className="text-muted/70 text-xs uppercase tracking-wider mb-2">Sponsored by</p>
+              {sponsors.map((sponsor) => (
+                <a
+                  key={sponsor.href}
+                  href={sponsor.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-gold hover:text-gold-light text-sm transition-colors"
+                >
+                  {sponsor.name}
+                </a>
+              ))}
             </div>
           </div>
         </div>
